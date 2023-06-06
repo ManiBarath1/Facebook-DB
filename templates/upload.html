@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-left">
+            <img src="../static/images/fb-logo.png" alt="This is logo" class="logo">
+            <ul>
+                <li><img src="../static/images/notification.png"></li>
+                <li><img src="../static/images/inbox.png"></li>
+                <li><img src="../static/images/video.png"></li>
+            </ul>
+        </div>
+        <div class="nav-right">
+            <div class="search-box">
+                <img src="../static/images/search.png">
+                <input type="text" placeholder="Search">
+            </div>
+            <div class="nav-user-icon online" onclick="settingMenuToggle()">
+                <img src="../static/images/mine.jpg" alt="">
+            </div>
+        </div>
+
+        <div class="settings-menu">
+            <div id="dark-button">
+                <span></span>
+            </div>
+
+            <div class="settings-menu-inner">
+                <div class="user-profile">
+                    <img src="../static/images/mine.jpg">
+                    <div>
+                        <p>Mani</p>
+                        <a href="#">See your profile</a>
+                    </div>
+                </div>
+                <hr>
+                <div class="user-profile">
+                    <img src="../static/images/feedback.png">
+                    <div>
+                        <p>Give feedback</p>
+                        <a href="#">Help us to improve the new design</a>
+                    </div>
+                </div>
+                <hr>
+                <div class="settings-link">
+                    <img src="../static/images/setting.png" class="settings-icon">
+                    <a href="#">Setting privacy <img src="../static/images/arrow.png" width="10px"></a>
+                </div>
+                <div class="settings-link">
+                    <img src="../static/images/help.png" class="settings-icon">
+                    <a href="#">Help & Support<img src="../static/images/arrow.png" width="10px"></a>
+                </div>
+                <div class="settings-link">
+                    <img src="../static/images/display.png" class="settings-icon">
+                    <a href="#">Display & Accesscibility <img src="../static/images/arrow.png" width="10px"></a>
+                </div>
+                <div class="settings-link">
+                    <img src="../static/images/logout.png" class="settings-icon">
+                    <a href="#">Logout <img src="../static/images/arrow.png" width="10px"></a>
+                </div>
+            </div>
+
+        </div>
+
+    </nav>
+    <section class="upload">
+        <div>
+            <form action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+                <label for="{{ form.image.id }}">Select an image:</label>
+                {{ form.image(class="file", id=form.image.id) }}
+                <br>
+            
+                <label for="{{ form.description.id }}">Description:</label>
+                {{ form.description(class="description", id=form.description.id) }}
+                <br>
+            
+                <!-- Include the CSRF token field -->
+                {{ form.csrf_token }}
+                <input type="submit" value="Upload" class="button">
+            </form>
+        </div>
+    </section>
+</body>
+</html>

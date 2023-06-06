@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-left">
+            <img src="../static/images/fb-logo.png" alt="This is logo" class="logo">
+            <ul>
+                <li><img src="../static/images/notification.png"></li>
+                <li><img src="../static/images/inbox.png"></li>
+                <li><img src="../static/images/video.png"></li>
+            </ul>
+        </div>
+        <div class="nav-right">
+            <div class="search-box">
+                <img src="../static/images/search.png">
+                <input type="text" placeholder="Search">
+            </div>
+            <div class="nav-user-icon online" onclick="settingMenuToggle()">
+                {%if profile_image %}
+                   {% set image_data = profile_image|b64encode %}
+                   <img src="data:image/jpeg;base64,{{ image_data }}" alt="profile_image">
+                {%endif%}
+            </div>
+        </div>
+
+        <div class="settings-menu">
+            <div id="dark-button">
+                <span></span>
+            </div>
+
+            <div class="settings-menu-inner">
+                <div class="user-profile">
+                    {%if profile_image%}
+                       {% set image_data = profile_image|b64encode %}
+                        <img src="data:image/jpeg;base64,{{ image_data }}" alt="profile_image">
+                    {%endif%}
+                    <div>
+                        {%if current_user.username%}
+                        <p>{{current_user.username}}</p>
+                        {%endif%}
+                        <a href="{{url_for('profile')}}">See your profile</a>
+                    </div>
+                </div>
+                <hr>
+                <div class="user-profile">
+                    <img src="../static/images/feedback.png">
+                    <div>
+                        <p>Give feedback</p>
+                        <a href="#">Help us to improve the new design</a>
+                    </div>
+                </div>
+                <hr>
+                <div class="settings-link">
+                    <img src="../static/images/setting.png" class="settings-icon">
+                    <a href="#">Setting privacy <img src="../static/images/arrow.png" width="10px"></a>
+                </div>
+                <div class="settings-link">
+                    <img src="../static/images/help.png" class="settings-icon">
+                    <a href="#">Help & Support<img src="../static/images/arrow.png" width="10px"></a>
+                </div>
+                <div class="settings-link">
+                    <img src="../static/images/display.png" class="settings-icon">
+                    <a href="#">Display & Accesscibility <img src="../static/images/arrow.png" width="10px"></a>
+                </div>
+                <div class="settings-link">
+                    <img src="../static/images/logout.png" class="settings-icon">
+                    <a href="{{url_for('logout')}}">Logout <img src="../static/images/arrow.png" width="10px"></a>
+                </div>
+            </div>
+
+        </div>
+
+    </nav>
+    
+    <div class="container">
+        <div class="left-sidebar">
+            <div class="imp-links">
+                <a href="#"><img src="../static/images/news.png">Latest News</a>
+                <a href="#"><img src="../static/images/friends.png">Friends</a>
+                <a href="#"><img src="../static/images/group.png">Groups</a>
+                <a href="#"><img src="../static/images/marketplace.png">Market</a>
+                <a href="#"><img src="../static/images/watch.png">Watch</a>
+                <a href="#">See More</a>
+            </div>
+            <div class="shortcut-links">
+                <p>Your Shorcuts</p>
+                <a href="#"><img src="../static/images/shortcut-1.png">Web Develobers</a>
+                <a href="#"><img src="../static/images/shortcut-2.png">Python Develobers</a>
+                <a href="#"><img src="../static/images/shortcut-3.png">Full Stack Develobers</a>
+                <a href="#"><img src="../static/images/shortcut-4.png">Data Science</a>
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="story-gallery">
+                <div class="story story1">
+                    <img src="../static/images/upload.png">
+
+                    <p>Post Story</p>
+                </div>
+                <div class="story story2">
+                    <img src="../static/images/member-1.png">
+                    <p>Lucy</p>
+                </div>
+                <div class="story story3">
+                    <img src="../static/images/member-2.png">
+                    <p>Simon</p>
+                </div>
+                <div class="story story4">
+                    <img src="../static/images/member-6.png">
+                    <p>Ileana</p>
+                </div>
+                <div class="story story5">
+                    <img src="../static/images/member-5.png">
+                    <p>Morcus</p>
+                </div>
+            </div>
+
+            <div class="write-post-container">
+                <div class="user-profile">
+                    {% if profile_image %}
+                       {% set image_data = profile_image|b64encode %}
+                       <img src="data:image/jpeg;base64,{{ image_data }}">
+                    {%endif%}
+                    <div>
+                        {%if current_user.username%}
+                        <p>{{current_user.username}}</p>
+                        {%endif%}
+                        <small>Public <i class="fa fa-arrow-down" aria-hidden="true"></i></small>
+                    </div>
+                </div>
+                <div class="post-input-container">
+                    <textarea rows="3" placeholder="What's in your mind... Mani?"></textarea>
+                    <div class="add-post-links">
+                        <a href="#"><img src="../static/images/live-video.png">Live video</a>
+                        <a href="{{url_for('upload')}}"><img src="../static/images/photo.png">Photo/Video</a>
+                        <a href="#"><img src="../static/images/feeling.png">Feeling/Activity</a>
+                    </div>
+                </div>
+            </div>
+            {% for post in posts %}
+                <div class="post-container">
+                    <div class="post-row">
+                        <div class="user-profile">
+                            {% if profile_image %}
+                                {% set image_data = profile_image|b64encode %}
+                                <img src="data:image/jpeg;base64,{{ image_data }}">
+                            {% endif %}
+                            <div>
+                                {% if current_user.username %}
+                                    <p>{{ current_user.username }}</p>
+                                {% endif %}
+                                <span>{{ post.timestamp.strftime('%B %d %Y %H:%M:%S') }}</span>
+                            </div>
+                        </div>
+                        <a href="#"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
+                    </div>
+                    <p class="post-text">{{ post.description }}</p>
+                    {% if post.data %}
+                        {% set image_data = post.data|b64encode %}
+                        <img src="data:image/jpeg;base64,{{ image_data }}" class="post-img">
+                    {% endif %}
+                    <div class="post-row">
+                        <div class="activity-icons">
+                            <div><img src="../static/images/like-blue.png">500</div>
+                            <div><img src="../static/images/comments.png">50</div>
+                            <div><img src="../static/images/share.png">25</div>
+                        </div>
+                        <div class="post-profile-icon">
+                            <img src="../static/images/mine.jpg">
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+            <!-- <div class="post-container">
+                <div class="post-row">
+                    <div class="user-profile">
+                        {% if profile_image %}
+                           {% set image_data = profile_image|b64encode %}
+                           <img src="data:image/jpeg;base64,{{ image_data }}">
+                        {%endif%}
+                        <div>
+                            {%if current_user.username%}
+                              <p>{{current_user.username}}</p>
+                            {%endif%}
+                            <span>May 28, 2023, 07:20 PM</span>
+                        </div>
+                    </div>
+                    <a href="#"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
+                </div>
+                <p class="post-text">Welcome to <span>@Mani Youtube Channel</span>. This is a channel foused on learn Python. <a href="#">#Mani</a><a href="#">#YoutubeChannel</a></p>
+                <img src="../static/images/feed-image-1.png" class="post-img">
+                <div class="post-row">
+                    <div class="activity-icons">
+                        <div><img src="../static/images/like-blue.png">500</div>
+                        <div><img src="../static/images/comments.png">50</div>
+                        <div><img src="../static/images/share.png">25</div>
+                    </div>
+                    <div class="post-profile-icon">
+                        <img src="../static/images/mine.jpg">
+                    </div>
+                </div>
+            </div>
+            <div class="post-container">
+                <div class="post-row">
+                    <div class="user-profile">
+                        {% if profile_image %}
+                           {% set image_data = profile_image|b64encode %}
+                           <img src="data:image/jpeg;base64,{{ image_data }}">
+                        {%endif%}
+                        <div>
+                            {%if current_user.username%}
+                              <p>{{current_user.username}}</p>
+                            {%endif%}
+                            <span>May 28, 2023, 07:20 PM</span>
+                        </div>
+                    </div>
+                    <a href="#"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
+                </div>
+                <p class="post-text">Welcome to <span>@Mani Youtube Channel</span>. This is a channel foused on learn Python. <a href="#">#Mani</a><a href="#">#YoutubeChannel</a></p>
+                <img src="../static/images/feed-image-1.png" class="post-img">
+                <div class="post-row">
+                    <div class="activity-icons">
+                        <div><img src="../static/images/like-blue.png">500</div>
+                        <div><img src="../static/images/comments.png">50</div>
+                        <div><img src="../static/images/share.png">25</div>
+                    </div>
+                    <div class="post-profile-icon">
+                        <img src="../static/images/mine.jpg">
+                    </div>
+                </div>
+            </div> -->
+
+            <button type="button" class="load-more-button">Load More</button>
+
+        </div>
+    
+        <div class="right-sidebar">
+            <div class="sidebar-title">
+                <h4>Events</h4>
+                <a href="#">See All</a>
+            </div>
+            <div class="event">
+                <div class="left-event">
+                     <h2>28</h2>
+                     <span>May</span>
+                </div>
+                <div class="right-event">
+                    <h4>Social Media</h4>
+                    <p><i class="fa fa-map-marker" aria-hidden="true"></i>Mani</p>
+                    <a href="#">More Info</a>
+                </div>
+            </div>
+            <!--  -->
+            <div class="event">
+                <div class="left-event">
+                     <h2>27</h2>
+                     <span>May</span>
+                </div>
+                <div class="right-event">
+                    <h4>Facebook</h4>
+                    <p><i class="fa fa-map-marker" aria-hidden="true"></i>Mani</p>
+                    <a href="#">More Info</a>
+                </div>
+            </div>
+            
+            <div class="sidebar-title">
+                <h4>Advertisements</h4>
+                <a href="#">Close</a>
+            </div>
+            <img src="../static/images/advertisement.png" class="sidebar-ads">
+            <img src="../static/images/advertisement.png" class="sidebar-ads">
+            <br><br>
+            <div class="online-list">
+                <div class="online">
+                    <img src="../static/images/member-1.png">
+                    <p>Lusy</p>
+                </div>
+            </div>
+            <div class="online-list">
+                <div class="online">
+                    <img src="../static/images/member-2.png">
+                    <p>Tom</p>
+                </div>
+            </div>
+            <div class="online-list">
+                <div class="online">
+                    <img src="../static/images/member-3.png">
+                    <p>Cleaver</p>
+                </div>
+            </div>
+            <div class="online-list">
+                <div class="online">
+                    <img src="../static/images/member-4.png">
+                    <p>Disney</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Copyright 2023 - Mani Youtube Channel</p>
+    </div>
+
+    <script src="../static/js/script.js"></script>
+</body>
+</html>

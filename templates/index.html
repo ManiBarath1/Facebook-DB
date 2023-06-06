@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body class="index-body">
+    <section >
+           <div class="index-sec">
+            <div class="index-left">
+                <h1>Facebook</h1>
+                <br>
+                <p> Facebook helps you connect and share with the people in your life.</p>
+    
+               </div>
+               <div class="index-right">
+                   <div class="div1">
+                        <form action="{{url_for('login')}}" method="POST">
+                            <!-- <input type="text" id="email" name="email" placeholder=" email address">
+                            <br>
+                            <input type="password" id="password" name="password" placeholder="Enter password">
+                            <br>
+                            <input type="submit" value="Login" class="submit">
+                            <br> -->
+
+        
+                            {{ form.hidden_tag() }}
+                            <div>
+                              <label for="identifier">Username or Email:</label>
+                              {{ form.identifier(id="identifier") }}
+                            </div>
+                            <div>
+                              <label for="password">Password:</label>
+                              {{ form.password(id="password") }}
+                            </div>
+                            <div>
+                              {{ form.submit(class='submit') }}
+                            </div>
+                        </form>
+                            <p>forgotten password?</p>
+                            <hr>
+                            <p><a href="{{url_for('register')}}">Create new account</a></p>
+                        
+                    </div>
+                    <div class="div2">
+                       <p><span>Create a page </span>for a celeberity,brand or business. </p>
+                    </div>
+
+               </div>
+
+           </div>
+    </section>
+</body>
+</html>
